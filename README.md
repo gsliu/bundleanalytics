@@ -102,7 +102,26 @@ Data preprocessing
 some other things need to consider???
 ignore the duplicate support bundle.
 
+5. for esxi host, A id number is added as the tag at the head of each line.
+   <id>:aaaaaa
+6. for virtual machine, A host id and virtual machine id is added.
+   <id>:<vmid>:aaaaaaa
 
+7. two relation database tables are used to store the information of host id and vm id.
+   +----------+-----------------------+-----------------------------+
+| host id  |     bugzilla id       |      host name              |
++----------------------------------------------------------------+
+|          |                       |                             |
+|          |                       |                             |
++----------+-----------------------+-----------------------------+
+                                                                  
+                                                                  
++-----------+---------------------+-------------------------+     
+|  vm id    |     host id         |       vm name           |     
++-----------------------------------------------------------+     
+|           |                     |                         |     
+|           |                     |                         |     
++-----------+---------------------+-------------------------+     
 
 
 UI data Input
@@ -131,8 +150,13 @@ configuration query
 
 log query
 
-PIE chart for percentage???
+For esxi host display
 
+ host namme |  bugzilla id | occurance times
+
+For vm display
+
+ vm name | host name | occurance times
 
 
 
