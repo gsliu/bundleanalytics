@@ -36,13 +36,13 @@ var svg = d3.select('body')
         .attr('width', width)
         .attr('height', height);
 
-svg.append('circle')
+svg.append('circle')  // the sun
     .attr('cx', width/2)
     .attr('cy', height/2)
     .attr('r', 20)
     .attr('id', 'center');
 
-svg = svg.append('g');
+svg = svg.append('g');  // two star
 
 svg.selectAll('circle')
     .data(planet)
