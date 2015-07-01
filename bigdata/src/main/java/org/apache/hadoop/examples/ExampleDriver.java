@@ -21,24 +21,23 @@ package org.apache.hadoop.examples;
 import org.apache.hadoop.util.ProgramDriver;
 
 /**
- * A description of an example program based on its class and a 
- * human-readable description.
+ * A description of an example program based on its class and a human-readable
+ * description.
  */
 public class ExampleDriver {
-  
-  public static void main(String argv[]){
-    int exitCode = -1;
-    ProgramDriver pgd = new ProgramDriver();
-    try {
-      pgd.addClass("vcpucount", VCPUCount.class, "Checking results of vcpu");
-      pgd.addClass("testmap", TestMap.class, "Checking results of wordcount");
-      exitCode = pgd.run(argv);
-    }
-    catch(Throwable e){
-      e.printStackTrace();
-    }
-    
-    System.exit(exitCode);
-  }
+
+	public static void main(String argv[]) {
+		int exitCode = -1;
+		ProgramDriver pgd = new ProgramDriver();
+		try {
+			pgd.addClass("vmemcount", VMEMCount.class, "Checking results of vmem");
+			pgd.addClass("vcpucount", VCPUCount.class, "Checking results of vcpu");
+			pgd.addClass("testmap", TestMap.class, "Checking results of wordcount");
+			exitCode = pgd.run(argv);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+		System.exit(exitCode);
+	}
 }
-	

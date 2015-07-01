@@ -54,7 +54,7 @@ public class VMEMCount {
 			if (str.length > 1) {
 				String[] cur = str[1].split(new String("="));
 				if (cur.length == 2) {
-					if(cur[0].replaceAll(new String("[ \t\"]"), "").toLowerCase().equals("numvcpus")) {
+					if(cur[0].replaceAll(new String("[ \t\"]"), "").toLowerCase().equals("memsize")) {
 						try {
 							int vcpu = Integer.parseInt(cur[1].replaceAll(new String("[ \t\"]"), ""));
 							word.set(String.valueOf(vcpu));
@@ -91,7 +91,7 @@ public class VMEMCount {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		if (otherArgs.length < 2) {
-			System.err.println("Usage: VCPUCount <in> [<in>...] <out>");
+			System.err.println("Usage: VMEMCount <in> [<in>...] <out>");
 			System.exit(2);
 		}
 		Job job = Job.getInstance(conf, "word count");
