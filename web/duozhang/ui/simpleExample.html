@@ -1,0 +1,73 @@
+<html>
+<head>
+<script src="../../../static/d3.v3.min.js"></script>
+<style type="text/css">
+    #center{ fill: yellow }
+.planet#green{ fill: green }
+.planet#blue{ fill: blue }
+</style>
+
+</head>
+
+<body>
+    <script type="text/javascript">
+var width = 500,
+    height = 500;
+
+var planet = [
+    {
+        'color': 'green',
+        'radius': 10,
+        'rotation': 0,
+        'speed':  5 * Math.PI / 180,
+        'distance': 100,
+    },
+    {
+        'color': 'blue',
+        'radius': 5,
+        'rotation': 0,
+        'speed': 10 * Math.PI / 180,
+        'distance': 200,
+    }
+];
+
+var svg = d3.select('body')
+    .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+svg.append('circle')
+    .attr('cx', width/2)
+    .attr('cy', height/2)
+    .attr('r', 20)
+    .attr('id', 'center');
+
+svg = svg.append('g');
+
+svg.selectAll('circle')
+    .data(planet)
+    .enter()
+    .append('circle')
+        .attr('class', 'planet')
+        .attr('cx', function(d){ return width/2; })
+        .attr('cy', function(d){ return height/2  - d.distance; })
+        .attr('r', function(d){ return d.radius; })
+        .attr('id', function(d){ return d.color; });
+
+setInterval(newPlace, 100);
+
+function newPlace(){
+    for(var key in planet)
+        planet[key].rotation += planet[key].speed;
+
+    svg.selectAll('circle')
+        .data(planet)
+        .transition()
+            .delay(0)
+            .duration(100)
+                .attr('cx', function(d){ return width/2 + Math.cos(d.rotation) * d.distance; })
+                .attr('cy', function(d){ return height/2 + Math.sin(d.rotation) * d.distance; });
+}
+</script>
+</body>
+</html>
