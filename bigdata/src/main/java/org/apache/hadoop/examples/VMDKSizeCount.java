@@ -48,9 +48,10 @@ public class VMDKSizeCount {
 					if (cur.length == 4) {
 						if(cur[2].equals("VMFS")) {
 							try {
-								long cur_sz = Integer.parseInt(cur[1]);
+								long cur_sz = Integer.parseInt(cur[1])/1024/1024;
 								if(id != bundle_id)
 								{
+									bundle_sz = bundle_sz;
 									word.set(String.valueOf(bundle_sz));
 									context.write(word, one);
 									bundle_sz = cur_sz;

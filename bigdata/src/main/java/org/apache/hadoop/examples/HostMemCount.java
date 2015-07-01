@@ -30,7 +30,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-public class HostCPUCount {
+public class HostMemCount {
 
 	public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
 
@@ -41,24 +41,25 @@ public class HostCPUCount {
 
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			String line = value.toString();
-			if(line.contains("Thread Count")) {
-				System.out.println("found a thread coutn\n");
-				String str[] = line.split(":");
+			//1000021:    Size: 8 GB
+			if(line.contains("    Size")) {
+				String str[] = value.toString().split(":");
 				try {
+					
 					int id = Integer.parseInt(str[0]);
-					String[] vv = line.split(new String("#"));
-					if (vv.length == 2) {
+					String[] cur = str[2].trim().split(new String(" "));
+					if ((cur.length == 2) &&( cur[1].equals("GB"))) {
 	
-								int cpu = Integer.valueOf(vv[1]);
+								int mem = Integer.valueOf(cur[0]);
 								if(id != bundle_id)
 								{
 									word.set(String.valueOf(bundle_cnt));
 									context.write(word, one);
-									bundle_cnt = cpu;
+									bundle_cnt = mem;
 								}
 								else
 								{
-									bundle_cnt += cpu;
+									bundle_cnt += mem;
 								}
 								bundle_id = id;
 							
@@ -93,11 +94,11 @@ public class HostCPUCount {
 			Configuration conf = new Configuration();
 			String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 			if (otherArgs.length < 2) {
-				System.err.println("Usage: HostCPUCount <in> [<in>...] <out>");
+				System.err.println("Usage: HostMemCount <in> [<in>...] <out>");
 				System.exit(2);
 			}
 			Job job = Job.getInstance(conf, "word count");
-			job.setJarByClass(HostCPUCount.class);
+			job.setJarByClass(HostMemCount.class);
 			job.setMapperClass(TokenizerMapper.class);
 			job.setCombinerClass(IntSumReducer.class);
 			job.setReducerClass(IntSumReducer.class);
