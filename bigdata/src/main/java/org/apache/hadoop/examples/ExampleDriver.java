@@ -30,6 +30,8 @@ public class ExampleDriver {
 		int exitCode = -1;
 		ProgramDriver pgd = new ProgramDriver();
 		try {
+			pgd.addClass("vmdksizecount", VMDKSizeCount.class, "Checking results of vmdksize");
+			pgd.addClass("vmdknumcount", VMDKNumCount.class, "Checking results of vmdknum");
 			pgd.addClass("vmemcount", VMEMCount.class, "Checking results of vmem");
 			pgd.addClass("vcpucount", VCPUCount.class, "Checking results of vcpu");
 			pgd.addClass("testmap", TestMap.class, "Checking results of wordcount");
