@@ -1,0 +1,8 @@
+org/apache/hadoop/examples/TestMap$TokenizerMapper.class
+org/apache/hadoop/examples/VCPUCount$TokenizerMapper.class
+org/apache/hadoop/examples/ExampleDriver.class
+org/apache/hadoop/examples/TestMap.class
+org/apache/hadoop/examples/VCPUCount$IntSumReducer.class
+org/apache/hadoop/examples/VCPUCount.class
+org/apache/hadoop/examples/Test.class
+org/apache/hadoop/examples/TestMap$IntSumReducer.class
