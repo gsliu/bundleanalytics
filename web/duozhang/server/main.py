@@ -7,7 +7,7 @@ from MySQLdb.cursors import DictCursor
 from flask import Flask, jsonify
 app = Flask(__name__)
 app.debug = True
-import get_search_res
+from get_search_result import *
 from datetime import timedelta
 from flask import make_response, request, current_app
 from functools import update_wrapper
