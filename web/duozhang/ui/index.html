@@ -5,11 +5,13 @@
     <title>Bungle</title>
     <script src="../../../static/d3.v3.min.js"></script>
     <script src="js/main_1.js"></script>
+    <script src="js/main.js"></script>
     <script src="static/echarts-all.js"></script>
     <link rel="stylesheet" type="text/css"
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
 
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="css/tooltip.css"/>
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" type="text/css" href="css/sequences.css"/>
@@ -51,20 +53,24 @@
   </head>
   <body>
 
-	<div  id='bungle-ctrl'>
-      <h1>Bungle</h1>
-  <label for="search-box">Keywords: </label>
-  <input id="search-box" onkeypress="return runScript(event)"> 
-  </div>
+    <div id="tooltip">
+      <div id="tooltip-Container">
+        <div class="tooltip-bug-id"></div>
+        <div class="tooltip-rule"></div>
+        <div class="tooltip-year"></div>
+        <div id="tooltip-desc"    class="tooltip-info"></div>
+        <div class="tooltip-tail"></div>
+      </div>
+    </div>
 
     <div id='galaxy'>
     </div>
 
-
-    <div id='tail-bar'>
-      <a id='statistics' href='/statistics.html'>Statistics</a>
+  	<div  id='bungle-ctrl'>
+      <h1>Bungle</h1>
+      <label for="search-box">Keywords: </label>
+      <input id="search-box" onkeypress="return runScript(event)"> 
     </div>
-
 
     <!-- <div style='clear: both'></div> -->
 	<!-- Information pop-up-->
