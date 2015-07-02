@@ -8,14 +8,78 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
 
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <!--<link rel="stylesheet" href="/resources/demos/style.css"> -->
+
+  <script>
+  $(function() {
+    var availableTags = [
+	"escalation",
+	"vmmcore", 
+	"vmxcore", 
+	"vmotion failure",
+	"vm", 
+	"vm.ctk", 
+	"host", 
+	"host.vhv"
+    ];
+    $( "#search-box" ).autocomplete({
+      source: availableTags
+    });
+  });
+
+   $(function() {
+      $("#search").click( function()
+           {
+             var keyword = $('#search-box').val();
+	     switch (keyword)
+	     {
+   		case "escalation":
+			//to do escaltion
+       			alert('escalation');
+			break;
+   		case "vmmcore":
+       			alert('vmmcore');
+			break;
+   		case "vmxcore":
+       			alert('vmxcore');
+			break;
+   		case "vmotion failure": 
+			alert('vmotion failure');
+			break;
+   		case "vm":
+			alert('vm');
+			break;
+   		case "vm.ctk":
+			alert('vmctk');
+			break;
+   		case "host":
+			alert('host');
+			break;
+   		case "host.vhv":
+       			alert('host.vhv');
+			break;
+ 	        default:
+			alert('keyword');
+			break;
+
+
+		}
+           }
+      );
+    });
+  </script>
   </head>
   <body>
 
-    <div id='bungle-ctrl'>
+	<div  id='bungle-ctrl'>
       <h1>Bungle</h1>
-      <input id='search-box'>
-    </div>
-
+  <label for="search-box">Keywords: </label>
+  <input id="search-box"> <input type="submit" value="Search" id="search">
+</div>
 
     <div id='galaxy'>
     </div>

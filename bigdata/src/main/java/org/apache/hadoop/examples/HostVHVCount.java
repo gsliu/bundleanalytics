@@ -30,7 +30,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-public class HostVersionCount {
+public class HostVHVCount {
 
 	public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
 
@@ -48,17 +48,28 @@ public class HostVersionCount {
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
 			/*
-			 * 1000442:VMkernel gbe00332.hbeu.adroot.hsbc 5.0.0 #1 SMP Release build-2312428 Nov 23 2014 20:18:08 x86_64 unknown
+			 * 5000599:numvcpus = "4" 5000599:memSize = "16384"
 			 */
-			String str[] = value.toString().split(" ");
-			if (str.length > 5) {
-				word.set(str[2]);
-					context.write(word, one);
+			String str[] = value.toString().split(":");
+			if (str.length > 1) {
+				String[] cur = str[1].split(new String("="));
+				if (cur.length == 2) {
+					String sss =cur[0].replaceAll(new String("[ \t\"]"), "").toLowerCase();
+					if(sss.equals("vhv.allow")|| sss.equals("vhv.enable")) {
+						try {
+							word.set("vhv");
+							context.write(word, one);
+							
+						} catch (Exception e) {
+							
+						}
+						
+					}
 				
-			}
+				}
 
+			}
 		}
-		
 	}
 
 	public static class IntSumReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
@@ -80,11 +91,11 @@ public class HostVersionCount {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 		if (otherArgs.length < 2) {
-			System.err.println("Usage: HostVersionCount <in> [<in>...] <out>");
+			System.err.println("Usage: HostVHVCount <in> [<in>...] <out>");
 			System.exit(2);
 		}
 		Job job = Job.getInstance(conf, "word count");
-		job.setJarByClass(HostVersionCount.class);
+		job.setJarByClass(HostVHVCount.class);
 		job.setMapperClass(TokenizerMapper.class);
 		job.setCombinerClass(IntSumReducer.class);
 		job.setReducerClass(IntSumReducer.class);

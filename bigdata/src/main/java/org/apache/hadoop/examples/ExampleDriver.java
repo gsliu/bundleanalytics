@@ -34,7 +34,11 @@ public class ExampleDriver {
 			pgd.addClass("vmdknumcount", VMDKNumCount.class, "Checking results of vmdknum");
 			pgd.addClass("vmemcount", VMEMCount.class, "Checking results of vmem");
 			pgd.addClass("vcpucount", VCPUCount.class, "Checking results of vcpu");
-			pgd.addClass("testmap", TestMap.class, "Checking results of wordcount");
+			pgd.addClass("hostversion", HostVersionCount.class, "Checking results of hostversion");
+			pgd.addClass("hostcpu", HostCPUCount.class, "Checking results of hostmem");
+			pgd.addClass("hostmem", HostMemCount.class, "Checking results of hostmem");
+			pgd.addClass("hostvhv", HostVHVCount.class, "Checking results of vhv");
+			pgd.addClass("vmctk", VMCTKCount.class, "Checking results of ctk");
 			exitCode = pgd.run(argv);
 		} catch (Throwable e) {
 			e.printStackTrace();

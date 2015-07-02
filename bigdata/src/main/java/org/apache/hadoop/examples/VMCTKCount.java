@@ -30,43 +30,40 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-public class HostCPUCount {
+public class VMCTKCount {
 
 	public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
 
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
 		private int bundle_id = -1;
-		private int bundle_cnt = 0;
+		
 
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			String line = value.toString();
-			if(line.contains("Thread Count")) {
-				System.out.println("found a thread coutn\n");
-				String str[] = line.split(":");
+			line = line.replaceAll(new String("[ \t\"]"), "").toLowerCase();
+			//5000452:scsi0:0.ctkEnabled = "TRUE"
+			if(line.contains("ctkenabled=true")) {
+				String str[] = value.toString().split(":");
 				try {
+					
 					int id = Integer.parseInt(str[0]);
-					String[] vv = line.split(new String("#"));
-					if (vv.length == 2) {
-	
-								int cpu = Integer.valueOf(vv[1]);
+				
+		
 								if(id != bundle_id)
 								{
-									word.set(String.valueOf(bundle_cnt));
+									word.set("ctk");
 									context.write(word, one);
-									bundle_cnt = cpu;
+									
 								}
-								else
-								{
-									bundle_cnt += cpu;
-								}
+								
 								bundle_id = id;
 							
-						}
+				 }
+				 catch (Exception e)
+				{
 					
-				
-				} catch (Exception e)
-				{}
+				}
 				
 			}
 			
@@ -93,11 +90,11 @@ public class HostCPUCount {
 			Configuration conf = new Configuration();
 			String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
 			if (otherArgs.length < 2) {
-				System.err.println("Usage: HostCPUCount <in> [<in>...] <out>");
+				System.err.println("Usage: VMCTKCount <in> [<in>...] <out>");
 				System.exit(2);
 			}
 			Job job = Job.getInstance(conf, "word count");
-			job.setJarByClass(HostCPUCount.class);
+			job.setJarByClass(VMCTKCount.class);
 			job.setMapperClass(TokenizerMapper.class);
 			job.setCombinerClass(IntSumReducer.class);
 			job.setReducerClass(IntSumReducer.class);
