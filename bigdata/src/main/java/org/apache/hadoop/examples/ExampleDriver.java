@@ -37,6 +37,8 @@ public class ExampleDriver {
 			pgd.addClass("hostversion", HostVersionCount.class, "Checking results of hostversion");
 			pgd.addClass("hostcpu", HostCPUCount.class, "Checking results of hostmem");
 			pgd.addClass("hostmem", HostMemCount.class, "Checking results of hostmem");
+			pgd.addClass("hostvhv", HostVHVCount.class, "Checking results of vhv");
+			pgd.addClass("vmctk", VMCTKCount.class, "Checking results of ctk");
 			exitCode = pgd.run(argv);
 		} catch (Throwable e) {
 			e.printStackTrace();
