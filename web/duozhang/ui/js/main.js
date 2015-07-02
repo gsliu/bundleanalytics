@@ -193,6 +193,31 @@ function toRadians (angle) { return angle * (Math.PI / 180);}
 
 
 $(document).ready(function () {
+  function LoadMyJs(scriptName) {
+      var docHeadObj = document.getElementsByTagName("head")[0];
+      var dynamicScript = document.createElement("script");
+      dynamicScript.type = "text/javascript";
+      dynamicScript.src = scriptName;
+      docHeadObj.appendChild(dynamicScript);
+  }
+
+  $(function() {
+    var availableTags = [
+    "escalation",
+    "vmmcore", 
+    "vmxcore", 
+    "vmotion failure",
+    "vm", 
+    "vm.ctk", 
+    "host", 
+    "host.vhv"
+    ];
+    $( "#search-box" ).autocomplete({
+      source: availableTags
+    });
+  });
+
+
     $('input').bind('input keyup', function(){
         var $this = $(this);
         var delay = 2000; // 2 seconds delay after last input

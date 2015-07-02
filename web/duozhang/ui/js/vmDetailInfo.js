@@ -95,7 +95,7 @@ function queryVMAttr (Attr) {
     }
     /* havn't finished, using stub*/
     $.ajax({
-        url: "http://10.117.8.228:5000/init_search",
+        url: "http://10.117.8.206:5000/vcpu",
         context: document.body,
         crossDomain : true,
         dataType: 'json'

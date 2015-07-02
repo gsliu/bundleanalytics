@@ -18,25 +18,25 @@ function runScript(e) {
                 //to do escaltion
                 // alert('escalation');
                 needRecovery = true;
-                escalation();
+                escalation(e == null);
                 $('#guide-desc').html('Searching ' + desc);
                 break;
         case "vmmcore":
                 // alert('vmmcore');
                 needRecovery = true;
-                data = vmmcore();
+                vmmcore(e == null);
                 $('#guide-desc').html('Searching ' + desc);
                 break;
         case "vmxcore":
                 // alert('vmxcore');
                 needRecovery = true;
-                data = vmxcore();
+                vmxcore(e == null);
                 $('#guide-desc').html('Searching ' + desc);
                 break;
         case "vmotion failure": 
                 // alert('vmotion failumre');
                 needRecovery = true;
-                data = vmotion();
+                vmotion(e == null);
                 $('#guide-desc').html('Searching ' + desc);
                 break;
         case "vm":
@@ -73,7 +73,7 @@ function runScript(e) {
         default:
                 // alert('keyword');
                 desc = '<em>keyword</em> ' + keyword
-        		keywordsearch(keyword)
+        		keywordsearch(keyword, e == null)
                 $('#guide-desc').html('Searching ' + desc);
                 break;
 
@@ -90,36 +90,48 @@ function getBugId(data) {
    return bugList;
 }
 
-function escalation() {
+function escalation(flag) {
    
     $.getJSON('http://10.117.8.206:5000/escalation', function(data) {
        console.log(data);
        t_highligtAndDim(getBugId(data));
+       if (!flag) {
+            showPrDetail(data);
+       }
     });
 }
 
-function vmmcore() {
+function vmmcore(flag) {
     $.getJSON('http://10.117.8.206:5000/vmmcore', function(data) {
        console.log(data);
        t_highligtAndDim(getBugId(data));
+       if (!flag) {
+            showPrDetail(data);
+       }
        return data
     });
 
 }
 
-function vmxcore() {
+function vmxcore(flag) {
 $.getJSON('http://10.117.8.206:5000/vmxcore', function(data) {
        console.log(data);
        t_highligtAndDim(getBugId(data));
+       if (!flag) {
+            showPrDetail(data);
+       }
        return data
     });
 
 }
 
-function vmotion() {
+function vmotion(flag) {
 $.getJSON('http://10.117.8.206:5000/vmotion', function(data) {
        console.log(data);
        t_highligtAndDim(getBugId(data));
+       if (!flag) {
+            showPrDetail(data);
+       }
        return data
     });
 
@@ -127,13 +139,16 @@ $.getJSON('http://10.117.8.206:5000/vmotion', function(data) {
 
 
 
-function keywordsearch(keyword) {
+function keywordsearch(keyword, flag) {
     theUrl = "http://10.117.8.206:5000/search?q=" + keyword;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false );
     xmlHttp.send( null );
     var result =  $.parseJSON(xmlHttp.responseText);
     t_highligtAndDim(getBugId(result));
+   if (!flag) {
+        showPrDetail(result);
+   }
     console.log(result);
     // return result;
     if (result['hits']) {

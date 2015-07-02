@@ -45,6 +45,7 @@ function closePrInfo() {
     //location.reload();
   //$('#sequence')[0].innerHTML = ''; 
   LoadMyJs("js/sequences.js");
+  $("#pr_chart").html('');
   //resetEvents();  
 }//closeInfo
 
