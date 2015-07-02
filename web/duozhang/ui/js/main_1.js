@@ -6,7 +6,7 @@ function runScript(e) {
         case "escalation":
                 //to do escaltion
                 alert('escalation');
-                data = escalation() 
+                data = escalation(); 
                 break;
         case "vmmcore":
                 alert('vmmcore');
@@ -50,6 +50,7 @@ function escalation() {
    
     $.getJSON('http://10.117.8.206:5000/escalation', function(data) {
        console.log(data);
+        showPrDetail(data);
        return data
     });
 }

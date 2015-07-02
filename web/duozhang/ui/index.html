@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" type="text/css" href="css/sequences.css"/>
   <link rel="stylesheet" type="text/css" href="css/infoBox.css"/>
+  <link rel="stylesheet" type="text/css" href="css/prInfoBox.css"/>
 
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -152,12 +153,48 @@
 		</div>
 	</div>
 
+
+    <!--PR info Tab-->
+	<div id="PR_information" class='hidden_info'>
+		<div id="infoContainer">
+			<div id="infoTitle">Search Result</div>
+			<div id="infoRule"></div>
+			<div id="infoText">
+				<span>This visualization shows the search result out of our vm-support bundle pool, with detailed info about associated PR..
+					  </span>
+	                        <div id="pr_chart">
+                        </div>
+			
+				<div id="infoInnerWrapper">
+                    <div id='chart-area'>
+                      <div id="main">
+                      </div>
+                    </div>
+                        
+				</div>	
+				<div id="prInfoClose" class='infoCloseClass'></div>
+			</div>
+		</div>
+	</div>
+
+
 	
                     <!-- <div style='clear: both'></div> -->
                     <script type="text/javascript" src="js/vmDetailInfo.js"></script>
                     <script type="text/javascript" src="js/hostInfo.js"></script>
                     <script type="text/javascript" src="js/sequences.js"></script>
+                    <script type="text/javascript" src="js/prDetail.js"></script>
 
+<div id='template_pr_info'>
+  <ul>
+    <li id=li_{{PR_NUMBER}}>
+        <div style="clear: both">
+      <h3>{{PR_NUMBER}}<label>{{PR_SUMMARY}}</label></h3>
+      <p>{{PR_BUNDLES}}</p>
+        </div>
+    </li>
+  </ul>
+</div>
 
   </body>
 </html>
