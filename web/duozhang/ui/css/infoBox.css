@@ -24,6 +24,14 @@
 	  width: 800px;
 }
 
+
+#PR_information {
+    background: #FFFFFF;
+/*    overflow-y: scroll;*/
+    overflow: auto;
+    height:500px;
+}
+
 #infoContainer {
 	padding: 15px;
 }
