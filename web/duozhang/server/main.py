@@ -146,9 +146,28 @@ def escalation():
     cur.execute('select * from escalation')
     result = cur.fetchall()
 
+    print result
     pr = []
-    for i in range(0, len(result) - 1):
-	pr.append(result[i]['pr'])
+    for i in result:
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select short_desc from bugs where bug_id = %s' %i['pr'])
+        summary = cur.fetchall()
+        if len(summary) == 0:
+                continue
+
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select hostname from hostinfo where pr = %s' %i['pr'])
+        bundles = cur.fetchall()
+
+        b = []
+        for j in range(0, len(bundles)):
+            b.append(bundles[j]['hostname'])
+
+        t = {'pr': i['pr'], 'summary':summary[0]['short_desc'], 'bundle':b}
+        pr.append(t)
+
     return ujson.dumps({'escalation': tuple(pr)})
 
 
@@ -156,24 +175,111 @@ def escalation():
 @crossdomain(origin='*')
 def vmmcore():
     result = ([1410564, 1406873, 1401845, 1401124, 1394165, 1392460])
-    return ujson.dumps({'vmmcore': result})
+    pr = []
+    for i in range(0, len(result)):
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select short_desc from bugs where bug_id = %s' %result[i])
+        summary = cur.fetchall()
+        if len(summary) == 0:
+                continue
+
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select hostname from hostinfo where pr = %s' %result[i])
+        bundles = cur.fetchall()
+
+        b = []
+        for j in range(0, len(bundles)):
+            b.append(bundles[j]['hostname'])
+
+        t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
+        pr.append(t)
+
+    return ujson.dumps({'vmmcore': tuple(pr)})
 
 @app.route("/vmxcore")
 @crossdomain(origin='*')
 def vmxcore():
     result = ([1390036, 1401374, 1401895, 1402825, 1403598, 1405216, 1406350, 140716])
-    return ujson.dumps({'vmxcore': result})
+    pr = []
+    for i in range(0, len(result)):
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select short_desc from bugs where bug_id = %s' %result[i])
+        summary = cur.fetchall()
+        if len(summary) == 0:
+                continue
+
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select hostname from hostinfo where pr = %s' %result[i])
+        bundles = cur.fetchall()
+
+        b = []
+        for j in range(0, len(bundles)):
+            b.append(bundles[j]['hostname'])
+
+        t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
+        pr.append(t)
+
+    return ujson.dumps({'vmxcore': tuple(pr)})
 
 @app.route("/vmotion")
 @crossdomain(origin='*')
 def vmotion():
     result = ([1402825, 1392805, 1394070, 1396916, 1398622, 1399322, 1400515])
-    return ujson.dumps({'vmotion': result})
+    pr = []
+    for i in range(0, len(result)):
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select short_desc from bugs where bug_id = %s' %result[i])
+        summary = cur.fetchall()
+        if len(summary) == 0:
+                continue
+
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select hostname from hostinfo where pr = %s' %result[i])
+        bundles = cur.fetchall()
+
+        b = []
+        for j in range(0, len(bundles)):
+            b.append(bundles[j]['hostname'])
+
+        t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
+        pr.append(t)
+
+    return ujson.dumps({'vmotion': tuple(pr)})
 
 @app.route("/search")
 @crossdomain(origin='*')
 def query():
-    return get_search_res(request.args['q'])
+    result = get_search_res(request.args['q'])["hits"]
+    pr = []
+    for i in range(0, len(result)):
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select short_desc from bugs where bug_id = %s' %result[i])
+        summary = cur.fetchall()
+
+        if len(summary) == 0:
+                continue
+
+        db_con = gen_db_con(dict_cursor=True)
+        cur = db_con.cursor()
+        cur.execute('select hostname from hostinfo where pr = %s' %result[i])
+        bundles = cur.fetchall()
+
+        b = []
+        for j in range(0, len(bundles)):
+            b.append(bundles[j]['hostname'])
+
+        t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
+        pr.append(t)
+
+    return ujson.dumps({'vmmcore': tuple(pr)})
+
 
 def categorize_vcpu(vcpu):
     vcpu_default = [2, 4, 6, 8]

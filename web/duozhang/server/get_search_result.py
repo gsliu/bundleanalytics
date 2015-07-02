@@ -69,7 +69,7 @@ def get_search_res(query):
     for x in get_vm_search_res(query):
         s.add(x)
     ans['hits'] = list(s) 
-    return json.dumps(ans)  
+    return ans
  
 if __name__ == "__main__":
     print host2pr(1000583)
