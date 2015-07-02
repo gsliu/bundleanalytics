@@ -82,7 +82,7 @@ def hostcpuinfo():
     x = []
     y = []
 
-    for i in range(0, len(result) - 1):
+    for i in range(0, len(result) ):
     	temp = {}
    	temp['name'] = result[i]['cpunumber']
    	temp['value'] = result[i]['count']
@@ -105,7 +105,7 @@ def hostmeminfo():
     x = []
     y = []
 
-    for i in range(0, len(result) - 1):
+    for i in range(0, len(result) ):
     	temp = {}
    	temp['name'] = result[i]['memsize']
    	temp['value'] = result[i]['count']
@@ -128,7 +128,7 @@ def hostversioninfo():
     x = []
     y = []
 
-    for i in range(0, len(result) - 1):
+    for i in range(0, len(result)):
     	temp = {}
    	temp['name'] = result[i]['hostversion']
    	temp['value'] = result[i]['count']
