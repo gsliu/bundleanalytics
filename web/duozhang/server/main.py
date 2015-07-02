@@ -281,10 +281,10 @@ def get_result(arg):
 
    
 
-# @app.route("/init_search")
-# @crossdomain(origin='*')
-# def init_search():
-#     return get_result('vcpu')
+@app.route("/vcpu")
+@crossdomain(origin='*')
+def get_vcpu():
+    return get_result('vcpu')
 
 
 def gen_db_con(dict_cursor=False):
