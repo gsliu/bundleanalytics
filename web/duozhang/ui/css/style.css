@@ -75,3 +75,7 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+
+ul.ui-autocomplete li.ui-menu-item {
+    text-align:left;
+}

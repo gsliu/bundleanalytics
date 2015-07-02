@@ -7,7 +7,7 @@ from MySQLdb.cursors import DictCursor
 from flask import Flask, jsonify
 app = Flask(__name__)
 app.debug = True
-import get_search_res
+from get_search_result import *
 from datetime import timedelta
 from flask import make_response, request, current_app
 from functools import update_wrapper
@@ -82,7 +82,7 @@ def hostcpuinfo():
     x = []
     y = []
 
-    for i in range(0, len(result) - 1):
+    for i in range(0, len(result) ):
     	temp = {}
    	temp['name'] = result[i]['cpunumber']
    	temp['value'] = result[i]['count']
@@ -98,14 +98,14 @@ def hostcpuinfo():
 def hostmeminfo():
     db_con = gen_db_con(dict_cursor=True)
     cur = db_con.cursor()
-    cur.execute('select * from hostmeminfo')
+    cur.execute('select * from hostmeminfo order by memsize')
     result = cur.fetchall()
 
     pie = []
     x = []
     y = []
 
-    for i in range(0, len(result) - 1):
+    for i in range(0, len(result) ):
     	temp = {}
    	temp['name'] = result[i]['memsize']
    	temp['value'] = result[i]['count']
@@ -128,7 +128,7 @@ def hostversioninfo():
     x = []
     y = []
 
-    for i in range(0, len(result) - 1):
+    for i in range(0, len(result)):
     	temp = {}
    	temp['name'] = result[i]['hostversion']
    	temp['value'] = result[i]['count']
@@ -151,38 +151,30 @@ def escalation():
 	pr.append(result[i]['pr'])
     return ujson.dumps({'escalation': tuple(pr)})
 
+
 @app.route("/vmmcore")
 @crossdomain(origin='*')
 def vmmcore():
-    db_con = gen_db_con(dict_cursor=True)
-    cur = db_con.cursor()
-    cur.execute('select * from bugs')
-    result = cur.fetchall()
-    return ujson.dumps({'rawData': result})
+    result = ([1410564, 1406873, 1401845, 1401124, 1394165, 1392460])
+    return ujson.dumps({'vmmcore': result})
 
 @app.route("/vmxcore")
 @crossdomain(origin='*')
 def vmxcore():
-    db_con = gen_db_con(dict_cursor=True)
-    cur = db_con.cursor()
-    cur.execute('select * from bugs')
-    result = cur.fetchall()
-    return ujson.dumps({'rawData': result})
+    result = ([1390036, 1401374, 1401895, 1402825, 1403598, 1405216, 1406350, 140716])
+    return ujson.dumps({'vmxcore': result})
 
 @app.route("/vmotion")
 @crossdomain(origin='*')
 def vmotion():
-    db_con = gen_db_con(dict_cursor=True)
-    cur = db_con.cursor()
-    cur.execute('select * from bugs')
-    result = cur.fetchall()
-    return ujson.dumps({'rawData': result})
+    result = ([1402825, 1392805, 1394070, 1396916, 1398622, 1399322, 1400515])
+    return ujson.dumps({'vmotion': result})
 
-@app.route("/search", methods=['POST'])
+@app.route("/search")
 @crossdomain(origin='*')
 def query():
-    query = request.form["query"]
-    return get_search_res(query)
+    return get_search_res(request.args['q'])
+
 
 if __name__ == "__main__":
     app.run('0.0.0.0')

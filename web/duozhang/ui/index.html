@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Bungle</title>
     <script src="../../../static/d3.v3.min.js"></script>
+    <script src="js/main.js"></script>
     <link rel="stylesheet" type="text/css"
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
 
@@ -30,47 +31,6 @@
       source: availableTags
     });
   });
-
-   $(function() {
-      $("#search").click( function()
-           {
-             var keyword = $('#search-box').val();
-	     switch (keyword)
-	     {
-   		case "escalation":
-			//to do escaltion
-       			alert('escalation');
-			break;
-   		case "vmmcore":
-       			alert('vmmcore');
-			break;
-   		case "vmxcore":
-       			alert('vmxcore');
-			break;
-   		case "vmotion failure": 
-			alert('vmotion failure');
-			break;
-   		case "vm":
-			alert('vm');
-			break;
-   		case "vm.ctk":
-			alert('vmctk');
-			break;
-   		case "host":
-			alert('host');
-			break;
-   		case "host.vhv":
-       			alert('host.vhv');
-			break;
- 	        default:
-			alert('keyword');
-			break;
-
-
-		}
-           }
-      );
-    });
   </script>
   </head>
   <body>
@@ -78,8 +38,8 @@
 	<div  id='bungle-ctrl'>
       <h1>Bungle</h1>
   <label for="search-box">Keywords: </label>
-  <input id="search-box"> <input type="submit" value="Search" id="search">
-</div>
+  <input id="search-box" onkeypress="return runScript(event)"> 
+  </div>
 
     <div id='galaxy'>
     </div>
