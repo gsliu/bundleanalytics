@@ -5,6 +5,8 @@ g = d.getElementsByTagName('body')[0],
 x = w.innerWidth || e.clientWidth || g.clientWidth,
 y = w.innerHeight|| e.clientHeight|| g.clientHeight;
 
+highlightBugIds = []
+
 var resolution = 1, //perhaps make slider?
     speedUp = 400,
     au = 149597871, //km
@@ -191,6 +193,19 @@ function toRadians (angle) { return angle * (Math.PI / 180);}
 
 
 $(document).ready(function () {
+    $('input').bind('input keyup', function(){
+        var $this = $(this);
+        var delay = 2000; // 2 seconds delay after last input
+
+        clearTimeout($this.data('timer'));
+        $this.data('timer', setTimeout(function(){
+            $this.removeData('timer');
+            runScript(null);
+            // Do your stuff after 2 seconds of last user input
+        }, delay));
+    });
+
+
     // console.log(serverData);
 var width = 500,
     height = 500;
@@ -216,10 +231,9 @@ var planet = [
 var width = $(window).width(),
     height = $(window).height();
 
-// var planet = rawDataToCircleData(serverData);
 
 $.getJSON('http://10.117.8.206:5000/init_search', function (serverData) {
-
+var planet = rawDataToCircleData(serverData);
 var svg = d3.select('#galaxy')
     .append('svg')
         .attr('width', width)
@@ -330,6 +344,7 @@ var svgOrbit = svg.append('g').attr('class', 'orbitContainer');
 var orbits = svgOrbit.selectAll('g.orbit')
                 .data(planet).enter().append('circle')
                 .attr('class', 'orbit')
+                .attr('id', function (d) { return d.bug_id; })
                 .attr('cx', function(d){ 
                     return width/2; })
                 .attr('cy', function(d){ 
@@ -423,13 +438,21 @@ function locate(coord) {
 
 
 d3.select("svg")
-    .on("click", function(d) {stopTooltip = true;});
+    .on("click", function(d) {
+        stopTooltip = true;
+        t_recovery();
+    });
 
 
 //Highlight some special planets & dim the others
 function highligtAndDim(bugIds) {
-    var time = 1000;
+    $('#guide-desc').html(['Searched', ].concat($('#guide-desc').val().split(' ').slice(1)).join(' '));
+    $('#guide-num').html(bugIds.length);
 
+    highlightBugIds = bugIds;
+    var time = 500;
+
+    console.log('Highlight');
     svg.selectAll('.planet')
         .filter(function (d, i) {
             return bugIds.indexOf(d.bug_id) >= 0
@@ -464,15 +487,22 @@ function highligtAndDim(bugIds) {
 }
 
 function recovery() {
+    console.log('recovery');
     svg.selectAll('.planet')
-        .transition().duration(400)
+        // .filter(function (d, i) {
+        //     return highlightBugIds.indexOf(d.bug_id) >= 0
+        // })
+        .transition().duration(100)
         .style('stroke-opacity', 0)
         .style('opacity', 0.6);
 
     svg.selectAll('.orbit')
-        .transition().duration(400)
+        // .filter(function (d, i) {
+        //     return highlightBugIds.indexOf(d.bug_id) >= 0
+        // })
+        .transition().duration(100)
         .style('stroke-opacity', 0)
-        .style('opacity', 0);
+        .style('fill-opacity', 0);
 }
 
 t_highligtAndDim = highligtAndDim;
