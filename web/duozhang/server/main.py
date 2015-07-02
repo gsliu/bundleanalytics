@@ -168,7 +168,7 @@ def escalation():
         t = {'pr': i['pr'], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'escalation': tuple(pr)})
+    return ujson.dumps({'data': tuple(pr)})
 
 
 @app.route("/vmmcore")
@@ -196,7 +196,7 @@ def vmmcore():
         t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'vmmcore': tuple(pr)})
+    return ujson.dumps({'data': tuple(pr)})
 
 @app.route("/vmxcore")
 @crossdomain(origin='*')
@@ -223,7 +223,7 @@ def vmxcore():
         t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'vmxcore': tuple(pr)})
+    return ujson.dumps({'data': tuple(pr)})
 
 @app.route("/vmotion")
 @crossdomain(origin='*')
@@ -250,7 +250,7 @@ def vmotion():
         t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'vmotion': tuple(pr)})
+    return ujson.dumps({'data': tuple(pr)})
 
 @app.route("/search")
 @crossdomain(origin='*')
@@ -278,7 +278,7 @@ def query():
         t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'vmmcore': tuple(pr)})
+    return ujson.dumps({'data': tuple(pr)})
 
 
 def categorize_vcpu(vcpu):
