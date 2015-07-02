@@ -21,6 +21,7 @@ var global_pr_data = {
 function showPrDetail (prData) {
     showPrInfo()
     var template = $('#template_pr_info')[0].innerHTML;
+    $("#pr_chart")[0].innerHTML = "";
     $.each(prData['data'], function(index, element){
         console.log(element);
         if (element['summary'].length > 50){
