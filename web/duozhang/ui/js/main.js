@@ -82,8 +82,12 @@ $.getJSON('http://10.117.8.206:5000/vmotion', function(data) {
 
 function keywordsearch(keyword) {
 
-//$.getJSON('http://10.117.8.206:5000/', function(data) {
- //      console.log(data);
-  //     return data
-   // });
+    theUrl = "http://10.117.8.206:5000/search?q=" + keyword;
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    var result =  xmlHttp.responseText;
+    console.log(result);
+    return result;
 }
+
