@@ -68,7 +68,9 @@ def init_search_orig():
     cur = db_con.cursor()
     cur.execute('select * from bugs')
     result = cur.fetchall()
-    return ujson.dumps({'rawData': result})
+    response = make_response(ujson.dumps({'rawData': result}))
+    response.content_type = "application/json"
+    return response 
 
 @app.route("/hostcpuinfo")
 @crossdomain(origin='*')
@@ -90,8 +92,9 @@ def hostcpuinfo():
    	x.append(result[i]['cpunumber'])
    	y.append(result[i]['count'])
 	
-    return ujson.dumps({'pie': tuple(pie), 'bar':(x,y)})
-
+    response = make_response(ujson.dumps({'pie': tuple(pie), 'bar':(x,y)}))
+    response.content_type = "application/json"
+    return response 
 
 @app.route("/hostmeminfo")
 @crossdomain(origin='*')
@@ -113,8 +116,9 @@ def hostmeminfo():
    	x.append(result[i]['memsize'])
    	y.append(result[i]['count'])
 	
-    return ujson.dumps({'pie': tuple(pie), 'bar':(x,y)})
-
+    response = make_response(ujson.dumps({'pie': tuple(pie), 'bar':(x,y)}))
+    response.content_type = "application/json"
+    return response 
 
 @app.route("/hostversioninfo")
 @crossdomain(origin='*')
@@ -136,7 +140,9 @@ def hostversioninfo():
    	x.append(result[i]['hostversion'])
    	y.append(result[i]['count'])
 	
-    return ujson.dumps({'pie': tuple(pie), 'bar':(x,y)})
+    response = make_response(ujson.dumps({'pie': tuple(pie), 'bar':(x,y)}))
+    response.content_type = "application/json"
+    return response 
 
 @app.route("/escalation")
 @crossdomain(origin='*')
@@ -168,7 +174,9 @@ def escalation():
         t = {'pr': i['pr'], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'data': tuple(pr)})
+    response = make_response(ujson.dumps({'data': tuple(pr)}))
+    response.content_type = "application/json"
+    return response 
 
 
 @app.route("/vmmcore")
@@ -196,7 +204,9 @@ def vmmcore():
         t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'data': tuple(pr)})
+    response = make_response(ujson.dumps({'data': tuple(pr)}))
+    response.content_type = "application/json"
+    return response 
 
 @app.route("/vmxcore")
 @crossdomain(origin='*')
@@ -223,7 +233,9 @@ def vmxcore():
         t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'data': tuple(pr)})
+    response = make_response(ujson.dumps({'data': tuple(pr)}))
+    response.content_type = "application/json"
+    return response 
 
 @app.route("/vmotion")
 @crossdomain(origin='*')
@@ -250,7 +262,9 @@ def vmotion():
         t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'data': tuple(pr)})
+    response = make_response(ujson.dumps({'data': tuple(pr)}))
+    response.content_type = "application/json"
+    return response 
 
 @app.route("/search")
 @crossdomain(origin='*')
@@ -278,8 +292,9 @@ def query():
         t = {'pr':result[i], 'summary':summary[0]['short_desc'], 'bundle':b}
         pr.append(t)
 
-    return ujson.dumps({'data': tuple(pr)})
-
+    response = make_response(ujson.dumps({'data': tuple(pr)}))
+    response.content_type = "application/json"
+    return response 
 
 def categorize_vcpu(vcpu):
     vcpu_default = [2, 4, 6, 8]
@@ -390,7 +405,9 @@ def get_result(arg):
 @app.route("/vcpu")
 @crossdomain(origin='*')
 def get_vcpu():
-    return get_result('vcpu')
+    response = make_response(get_result('vcpu'))
+    response.content_type = "application/json"
+    return response 
 
 
 def gen_db_con(dict_cursor=False):
@@ -414,8 +431,9 @@ def init_search():
     min_ct = min_max['min']
     max_ct = min_max['max']
 
-    return ujson.dumps({'rawData': all_bugs, 'minCt': min_ct, 'maxCt': max_ct})
-
+    response = make_response(ujson.dumps({'rawData': all_bugs, 'minCt': min_ct, 'maxCt': max_ct}))
+    response.content_type = "application/json"
+    return response 
 
 if __name__ == "__main__":
     app.run('0.0.0.0')
