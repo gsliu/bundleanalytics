@@ -82,6 +82,11 @@ html, body {
     height:400px;
 }
 
+#host_chart {
+  position: relative;
+    height:400px;
+}
+
 #attrChart {
   position: relative;
     height:400px;

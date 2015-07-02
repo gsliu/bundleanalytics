@@ -8,8 +8,8 @@ function queryVMInfo () {
         console.log(data)
         var vmDetailInfoCount = data['rawData'];
         console.log(vmDetailInfoCount);
-        drawVMChart(vmDetailInfoCount);
         showVMInfo()
+        drawVMChart(vmDetailInfoCount);
     });
 }
 
