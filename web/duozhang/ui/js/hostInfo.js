@@ -36,7 +36,7 @@ function drawHostCpuChart(cpuData) {
     var myChart = echarts.init(document.getElementById('cpu_chart'), 'macarons');
     var option = {
     title : {
-        text: 'CPU',
+        text: 'CPU Cores',
         subtext: '',
         x:'center'
     },
@@ -90,7 +90,7 @@ function drawHostVerChart(verData) {
     var myChart = echarts.init(document.getElementById('ver_chart'), 'macarons');
     var option = {
     title : {
-        text: 'Product',
+        text: 'ESXi Version',
         subtext: '',
         x:'center'
     },
@@ -128,7 +128,7 @@ function drawHostVerChart(verData) {
     calculable : true,
     series : [
         {
-            name:'CPU Info',
+            name:'ESXi Host Version',
             type:'pie',
             radius : '55%',
             center: ['50%', '60%'],
@@ -236,7 +236,7 @@ function queryHostAttrStub() {
         calculable : true,
         series : [
             {
-                name:'ctk stats',
+                name:'vhv stats',
                 type:'pie',
                 radius : ['50%', '70%'],
                 itemStyle : {

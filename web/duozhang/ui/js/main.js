@@ -204,8 +204,8 @@ $(document).ready(function () {
   $(function() {
     var availableTags = [
     "escalation",
-    "vmmcore", 
-    "vmxcore", 
+    "vmm panic", 
+    "vmx panic", 
     "vmotion failure",
     "vm", 
     "vm.ctk", 

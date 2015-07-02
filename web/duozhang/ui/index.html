@@ -5,13 +5,14 @@
     <title>Bungle</title>
     <script src="../../../static/d3.v3.min.js"></script>
     <script src="static/echarts-all.js"></script>
-    <link rel="stylesheet" type="text/css"
+  <!--  <link rel="stylesheet" type="text/css"
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
+-->
 
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
     <link type="text/css" rel="stylesheet" href="css/tooltip.css"/>
 
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
   <link rel="stylesheet" type="text/css" href="css/sequences.css"/>
   <link rel="stylesheet" type="text/css" href="css/infoBox.css"/>
   <link rel="stylesheet" type="text/css" href="css/prInfoBox.css"/>
@@ -62,7 +63,7 @@
 	<!-- Information pop-up-->
 	<div id="VM_information" class='hidden_info'>
 		<div id="infoContainer">
-			<div id="infoTitle">VM Statistics</div>
+			<div id="infoTitle">VM Basic information Statistics</div>
 			<div id="infoRule"></div>
 			<div id="infoText">
 				<span>This visualization shows the stats of 9000+ VMs, from the vm-support bundles in VMware bugzilla. 
@@ -88,7 +89,7 @@
     <!--Host info Tab-->
 	<div id="HOST_information" class='hidden_info'>
 		<div id="infoContainer">
-			<div id="infoTitle">Host Statistics</div>
+			<div id="infoTitle">ESXi Host Basic Information Statistics</div>
 			<div id="infoRule"></div>
 			<div id="infoText">
 				<span>This visualization shows the stats of 600+ ESXi hosts extracted from vm-support uploaded to VMware.
@@ -119,7 +120,7 @@
     <!--Host Attr info Tab-->
 	<div id="HOSTATTR_information" class='hidden_info'>
 		<div id="infoContainer">
-			<div id="infoTitle">Host Attr Statistics</div>
+			<div id="infoTitle">ESXi Host Configuration Statistics</div>
 			<div id="infoRule"></div>
 			<div id="infoText">
 				<span>This visualization shows the stats of 600+ ESXi hosts extracted from vm-support uploaded to VMware.
