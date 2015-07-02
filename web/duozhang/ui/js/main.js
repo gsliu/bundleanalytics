@@ -463,12 +463,12 @@ function highligtAndDim(bugIds) {
 
 function recovery() {
     svg.selectAll('.planet')
-        .transition()
+        .transition().duration(400)
         .style('stroke-opacity', 0)
         .style('opacity', 0.6);
 
     svg.selectAll('.orbit')
-        .transition()
+        .transition().duration(400)
         .style('stroke-opacity', 0)
         .style('opacity', 0);
 }
