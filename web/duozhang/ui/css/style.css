@@ -22,10 +22,12 @@ body {
     width: 571px;
     padding: 5px 0px;
 
-    margin: 0px auto 0px auto;
-
-    position: relative;
-    top: 30%;
+/*    margin-left: -285px;
+    margin-top: ;*/
+    transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
 }
 
 #bungle-ctrl > h1 {
@@ -75,3 +77,8 @@ body {
     text-decoration: none;
     font-weight: bold;
 }
+
+
+    #center{ fill: yellow }
+.planet#green{ fill: green }
+.planet#blue{ fill: blue }
