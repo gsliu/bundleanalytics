@@ -52,6 +52,11 @@
 
   </head>
   <body>
+    <div id='guide'>
+      <span id='guide-desc'></span>
+      <span id='guide-text'>Number of Results:</span>
+      <span id='guide-num'></span>
+    </div>
 
     <div id="tooltip">
       <div id="tooltip-Container">
@@ -69,7 +74,7 @@
   	<div  id='bungle-ctrl'>
       <h1>Bungle</h1>
       <label for="search-box">Keywords: </label>
-      <input id="search-box" onkeypress="return runScript(event)"> 
+      <input id="search-box" onkeyup="runScript(event)"> 
     </div>
 
     <!-- <div style='clear: both'></div> -->

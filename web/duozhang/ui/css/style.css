@@ -81,3 +81,16 @@ body {
 ul.ui-autocomplete li.ui-menu-item {
     text-align:left;
 }
+
+#guide {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+
+    width: 200px;
+    height: 100px;
+}
+
+#guide > span {
+    color: white;
+}
