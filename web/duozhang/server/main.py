@@ -98,7 +98,7 @@ def hostcpuinfo():
 def hostmeminfo():
     db_con = gen_db_con(dict_cursor=True)
     cur = db_con.cursor()
-    cur.execute('select * from hostmeminfo')
+    cur.execute('select * from hostmeminfo order by memsize')
     result = cur.fetchall()
 
     pie = []
@@ -151,37 +151,30 @@ def escalation():
 	pr.append(result[i]['pr'])
     return ujson.dumps({'escalation': tuple(pr)})
 
+
 @app.route("/vmmcore")
 @crossdomain(origin='*')
 def vmmcore():
-    db_con = gen_db_con(dict_cursor=True)
-    cur = db_con.cursor()
-    cur.execute('select * from bugs')
-    result = cur.fetchall()
-    return ujson.dumps({'rawData': result})
+    result = ([1410564, 1406873, 1401845, 1401124, 1394165, 1392460])
+    return ujson.dumps({'vmmcore': result})
 
 @app.route("/vmxcore")
 @crossdomain(origin='*')
 def vmxcore():
-    db_con = gen_db_con(dict_cursor=True)
-    cur = db_con.cursor()
-    cur.execute('select * from bugs')
-    result = cur.fetchall()
-    return ujson.dumps({'rawData': result})
+    result = ([1390036, 1401374, 1401895, 1402825, 1403598, 1405216, 1406350, 140716])
+    return ujson.dumps({'vmxcore': result})
 
 @app.route("/vmotion")
 @crossdomain(origin='*')
 def vmotion():
-    db_con = gen_db_con(dict_cursor=True)
-    cur = db_con.cursor()
-    cur.execute('select * from bugs')
-    result = cur.fetchall()
-    return ujson.dumps({'rawData': result})
+    result = ([1402825, 1392805, 1394070, 1396916, 1398622, 1399322, 1400515])
+    return ujson.dumps({'vmotion': result})
 
 @app.route("/search")
 @crossdomain(origin='*')
 def query():
     return get_search_res(request.args['q'])
+
 
 if __name__ == "__main__":
     app.run('0.0.0.0')
