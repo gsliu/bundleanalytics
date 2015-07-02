@@ -178,11 +178,10 @@ def vmotion():
     result = cur.fetchall()
     return ujson.dumps({'rawData': result})
 
-@app.route("/search", methods=['POST'])
+@app.route("/search")
 @crossdomain(origin='*')
 def query():
-    query = request.form["query"]
-    return get_search_res(query)
+    return get_search_res(request.args['q'])
 
 if __name__ == "__main__":
     app.run('0.0.0.0')
