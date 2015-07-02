@@ -1,0 +1,47 @@
+div#pr_chart {
+  margin: 20px;
+}
+ 
+div#pr_chart ul {
+  list-style-type: none;
+  width: 500px;
+  padding-left:0px;
+}
+ 
+div#pr_chart h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+  margin-top:0px;
+  margin-bottom:5px;
+  color: #5882FA;
+}
+
+div#pr_chart h3 label{
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+  margin-left:10px;
+  color: #151515;
+}
+ 
+div#pr_chart li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+ 
+div#pr_chart li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+ 
+div#pr_chart li {
+  padding: 10px;
+  overflow: auto;
+}
+ 
+div#pr_chart li:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+div#template_pr_info {
+   visibility: hidden;
+}
