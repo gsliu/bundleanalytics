@@ -21,20 +21,20 @@ function runScript(e) {
                 data = vmotion();
                 break;
         case "vm":
-                alert('vm');
 		//fangchi input method
+		        queryVMInfo();
                 break;
         case "vm.ctk":
-                alert('vmctk');
-		//fangchi input method
+                //fangchi input method
+                queryVMAttr('ctk');
                 break;
         case "host":
-                alert('host');
-		//fangchi input method
+                //fangchi input method
+                queryHostInfo();
                 break;
         case "host.vhv":
-                alert('host.vhv');
-		//fangchi input method
+                //fangchi input method
+                queryHostAttr('vhv');
                 break;
         default:
                 alert('keyword');

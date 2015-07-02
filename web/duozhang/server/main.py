@@ -61,9 +61,9 @@ def gen_db_con(dict_cursor=False):
     else:
         con = MySQLdb.connect(host="10.117.8.206",port=3306,user="root",passwd="vmware",db="bigdata")
     return con
-@app.route("/init_search")
+@app.route("/init_search_orig")
 @crossdomain(origin='*')
-def init_search():
+def init_search_orig():
     db_con = gen_db_con(dict_cursor=True)
     cur = db_con.cursor()
     cur.execute('select * from bugs')
@@ -174,6 +174,120 @@ def vmotion():
 @crossdomain(origin='*')
 def query():
     return get_search_res(request.args['q'])
+
+def categorize_vcpu(vcpu):
+    vcpu_default = [2, 4, 6, 8]
+    if vcpu not in vcpu_default:
+        vcpu = 'other'
+    else:
+        vcpu = str(vcpu)
+    return 'vcpu '+str(vcpu)
+
+def categorize_disksize(size):
+    size = size/1024
+    if size == 0:
+        res = 0
+    elif size <= 40:
+        res = '<=40'
+    elif 40 < size <=100:
+        res = '40~100'
+    elif 100< size < 200:
+        res = '100~200'
+    else:
+        res = ">200"
+    return 'disk '+str(res)+'G'
+
+
+def categorize_memsize(size):
+    if size <= 2048:
+        res = '<=2048'
+    elif 3000 < size < 7000:
+        res = '4096'
+    elif 7000 < size < 15000:
+        res = '8192'
+    elif size <= 17000:
+        res = '16384'
+    else:
+        res = 'other'
+    return 'mem '+str(res)
+
+def categorize_hardwareversion(number):
+    version = ''
+    if number == 7:
+        version = '7'
+    elif number == 8:
+        version = '8'
+    elif number == 9:
+        version = '9'
+    elif number == 10:
+        version = '10'
+    else:
+        version == 'other'
+    return 'hwversion ' + str(version)
+
+def categorize_i(i):
+    item = dict()
+    for key in i.keys():
+        if key == 'vcpu':
+            item[key] = categorize_vcpu(i[key])
+        elif key == 'disksize':
+            item[key] = categorize_disksize(i[key])
+        elif key == 'memsize':
+            item[key] = categorize_memsize(i[key])
+        elif key == 'hardwareversion':
+            item[key] = categorize_hardwareversion(i[key])
+        elif key == 'count':
+            item[key] = i[key]
+    return item
+
+
+global_sequence = {
+                    'vcpu':['vcpu', 'memsize', 'disksize', 'hardwareversion'],
+                    'memsize':['memsize', 'vcpu', 'disksize', 'hardwareversion'],
+                    'disksize':['disksize', 'vcpu', 'memsize', 'hardwareversion'],
+                    'hardwareversion':['hardwareversion', 'vcpu', 'memsize', 'disksize']
+
+                  }
+
+def get_result(arg):
+    db_con = gen_db_con(dict_cursor=True)
+    cur = db_con.cursor()
+    seq = global_sequence[arg]
+    sql = '''SELECT %s, %s, %s, %s, COUNT(*) as count 
+             FROM  `vmdetailinfo` 
+             GROUP BY 1 , 2, 3, 4
+          ''' %(seq[0], seq[1], seq[2], seq[3])
+    cur.execute(sql)
+    result = cur.fetchall()
+    real_result = []
+    for i in result:
+        i = categorize_i(i)
+        step = '-'.join([str(i[seq[0]]), str(i[seq[1]]), str(i[seq[2]]), str(i[seq[3]])])
+        count = i['count']
+        real_result.append([step, count])
+    
+    dict_result = dict()
+    for i in real_result:
+        try:
+            dict_result[i[0]] += i[1]
+        except:
+            dict_result[i[0]] = i[1]
+
+    list_result = list()
+    for key in dict_result.keys():
+        list_result.append([key, dict_result[key]])
+
+    return ujson.dumps({'rawData': list_result})
+
+   
+
+@app.route("/init_search")
+@crossdomain(origin='*')
+def init_search():
+    return get_result('vcpu')
+    
+
+
 
 
 if __name__ == "__main__":
