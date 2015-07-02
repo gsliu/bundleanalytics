@@ -3,6 +3,7 @@ html, body {
   font-size: 12px;
   font-weight: 400;
   background-color: #fff;
+  background: url(http://33.media.tumblr.com/tumblr_me8fukLt0z1rdwlp0o1_500.jpg);
   box-sizing: border-box;
 
   min-height: 100%;
@@ -29,12 +30,12 @@ html, body {
 #chart-area {
   /*margin-left: 30%;*/
   float: left;
-  width: 80%;
+  width: 100%;
   height: 100%;
 
-  padding: 8% 0px 0px 8%;
+  padding: 8% 40px 0px 8%;
 
-  border-left-style: solid;
+  /*border-left-style: solid;*/
   border-left-color: #e5e5e5;
   border-left-width: 1px;
   box-sizing: border-box;
@@ -46,7 +47,7 @@ html, body {
 
 #main {
   float: left;
-  width: 750px;
+  width: 100%;
 }
 
 #sidebar {
@@ -78,8 +79,13 @@ html, body {
 
 #chart {
   position: relative;
+    height:400px;
 }
 
+#attrChart {
+  position: relative;
+    height:400px;
+}
 #chart path {
   stroke: #fff;
 }
@@ -96,4 +102,21 @@ html, body {
 
 #percentage {
   font-size: 2.5em;
+}
+
+#cpu_chart {
+    width:50%;
+    float:left;
+    height : 200px;
+}
+
+#ver_chart {
+    float:left;
+    width: 50%;
+    height : 200px;
+}
+
+#mem_chart {
+    height : 200px;
+    padding-top: 220px;
 }
