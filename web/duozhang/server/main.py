@@ -281,13 +281,34 @@ def get_result(arg):
 
    
 
+# @app.route("/init_search")
+# @crossdomain(origin='*')
+# def init_search():
+#     return get_result('vcpu')
+
+
+def gen_db_con(dict_cursor=False):
+    if dict_cursor:
+        con = MySQLdb.connect(host="10.117.8.206",port=3306,user="root",passwd="vmware",db="bigdata", cursorclass=DictCursor)
+    else:
+        con = MySQLdb.connect(host="10.117.8.206",port=3306,user="root",passwd="vmware",db="bigdata")
+    return con
+
+
 @app.route("/init_search")
 @crossdomain(origin='*')
 def init_search():
-    return get_result('vcpu')
-    
+    db_con = gen_db_con(dict_cursor=True)
+    cur = db_con.cursor()
+    cur.execute('select bug_id, creation_ts, keywords, short_desc  from bugs')
+    all_bugs = cur.fetchall()
 
+    cur.execute('select min(creation_ts) min, max(creation_ts) max from bugs')
+    min_max = cur.fetchall()[0]
+    min_ct = min_max['min']
+    max_ct = min_max['max']
 
+    return ujson.dumps({'rawData': all_bugs, 'minCt': min_ct, 'maxCt': max_ct})
 
 
 if __name__ == "__main__":
