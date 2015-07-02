@@ -23,5 +23,70 @@ def init_search():
     result = cur.fetchall()
     return ujson.dumps({'rawData': result})
 
+@app.route("/hostcpuinfo")
+def hostcpuinfo():
+    db_con = gen_db_con(dict_cursor=True)
+    cur = db_con.cursor()
+    cur.execute('select * from hostcpuinfo')
+    result = cur.fetchall()
+
+    pie = []
+    x = []
+    y = []
+
+    for i in range(0, len(result) - 1):
+    	temp = {}
+   	temp['name'] = result[i]['cpunumber']
+   	temp['value'] = result[i]['count']
+   	pie.append(temp)
+   	x.append(result[i]['cpunumber'])
+   	y.append(result[i]['count'])
+	
+    return ujson.dumps({'pie': tuple(pie), 'bar':(x,y)})
+
+
+@app.route("/hostmeminfo")
+def hostmeminfo():
+    db_con = gen_db_con(dict_cursor=True)
+    cur = db_con.cursor()
+    cur.execute('select * from hostmeminfo')
+    result = cur.fetchall()
+
+    pie = []
+    x = []
+    y = []
+
+    for i in range(0, len(result) - 1):
+    	temp = {}
+   	temp['name'] = result[i]['memsize']
+   	temp['value'] = result[i]['count']
+   	pie.append(temp)
+   	x.append(result[i]['memsize'])
+   	y.append(result[i]['count'])
+	
+    return ujson.dumps({'pie': tuple(pie), 'bar':(x,y)})
+
+
+@app.route("/hostversioninfo")
+def hostversioninfo():
+    db_con = gen_db_con(dict_cursor=True)
+    cur = db_con.cursor()
+    cur.execute('select * from hostversioninfo')
+    result = cur.fetchall()
+
+    pie = []
+    x = []
+    y = []
+
+    for i in range(0, len(result) - 1):
+    	temp = {}
+   	temp['name'] = result[i]['hostversion']
+   	temp['value'] = result[i]['count']
+   	pie.append(temp)
+   	x.append(result[i]['hostversion'])
+   	y.append(result[i]['count'])
+	
+    return ujson.dumps({'pie': tuple(pie), 'bar':(x,y)})
+
 if __name__ == "__main__":
     app.run('0.0.0.0')
