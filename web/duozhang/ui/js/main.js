@@ -14,6 +14,7 @@ var resolution = 1, //perhaps make slider?
     radiusSizer = 6, //Size increaser of radii of planets
     planetOpacity = 0.6;
 
+var t_highligtAndDim = null;
 
 function genColorRadius(color) {
     var _mapping = {
@@ -184,6 +185,10 @@ function endall(transition, callback) {
 
 //Turn degrees into radians
 function toRadians (angle) { return angle * (Math.PI / 180);}
+
+
+
+
 
 $(document).ready(function () {
     console.log(serverData);
@@ -419,4 +424,55 @@ d3.select("svg")
     .on("click", function(d) {stopTooltip = true;});
 
 
+//Highlight some special planets & dim the others
+function highligtAndDim(bugIds) {
+    var time = 1000;
+
+    svg.selectAll('.planet')
+        .filter(function (d, i) {
+            return bugIds.indexOf(d.bug_id) >= 0
+        })
+        .transition().duration(time)
+        .style('stroke-opacity', 1)
+        .style('opacity', 0.95)
+
+    svg.selectAll('.orbit')
+        .filter(function (d, i) {
+            return bugIds.indexOf(d.bug_id) >= 0
+        })
+        .transition()
+        .style('stroke-opacity', 0.8)
+        .style('fill-opacity', 0.2);
+
+    svg.selectAll('.planet')
+        .filter(function (d, i) {
+            return bugIds.indexOf(d.bug_id) < 0
+        })
+        .transition().duration(time)
+        .style('stroke-opacity', 0)
+        .style('opacity', 0.1);
+
+    svg.selectAll('.orbit')
+        .filter(function (d, i) {
+            return bugIds.indexOf(d.bug_id) < 0
+        })
+        .transition()
+        .style('stroke-opacity', 0)
+        .style('fill-opacity', 0);
+}
+
+function recovery() {
+    svg.selectAll('.planet')
+        .transition()
+        .style('stroke-opacity', 0)
+        .style('opacity', 0.6);
+
+    svg.selectAll('.orbit')
+        .transition()
+        .style('stroke-opacity', 0)
+        .style('opacity', 0);
+}
+
+t_highligtAndDim = highligtAndDim;
+t_recovery = recovery;
 })
