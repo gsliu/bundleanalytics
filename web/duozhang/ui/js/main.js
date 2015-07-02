@@ -191,7 +191,7 @@ function toRadians (angle) { return angle * (Math.PI / 180);}
 
 
 $(document).ready(function () {
-    console.log(serverData);
+    // console.log(serverData);
 var width = 500,
     height = 500;
 
@@ -216,7 +216,9 @@ var planet = [
 var width = $(window).width(),
     height = $(window).height();
 
-var planet = rawDataToCircleData(serverData);
+// var planet = rawDataToCircleData(serverData);
+
+$.getJSON('http://10.117.8.206:5000/init_search', function (serverData) {
 
 var svg = d3.select('#galaxy')
     .append('svg')
@@ -475,4 +477,8 @@ function recovery() {
 
 t_highligtAndDim = highligtAndDim;
 t_recovery = recovery;
+
+})//end getJson init_search
+
+
 })
