@@ -26,7 +26,7 @@ body {
     margin-top: ;*/
     transform: translate(-50%, -50%);
     position: fixed;
-    top: 50%;
+    top: 40%;
     left: 50%;
 }
 
@@ -79,6 +79,6 @@ body {
 }
 
 
-    #center{ fill: yellow }
+/*    #center{ fill: yellow }
 .planet#green{ fill: green }
-.planet#blue{ fill: blue }
+.planet#blue{ fill: blue }*/

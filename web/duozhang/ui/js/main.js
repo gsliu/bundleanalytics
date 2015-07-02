@@ -1,10 +1,10 @@
 function genColorRadius(color) {
     var _mapping = {
-        'red': ['red', 9],
-        'orange': ['orange', 7],
-        'yellow': ['yellow', 5],
-        'elevated': ['#e5e5e5', 3],
-        null: ['#eeeeee', 3],
+        'red': ['url(#radialGradient-red)', 20],
+        'orange': ['url(#radialGradient-orange)', 15],
+        'yellow': ['url(#radialGradient-yellow)', 12],
+        'elevated': ['url(#radialGradient-elevated)', 9],
+        null: ['url(#radialGradient-normal)', 7],
     };
     return _mapping[color];
 }
@@ -23,7 +23,7 @@ function DistanceFactory(minCreatedTs, maxCreatedTs) {
 }
 
 function genSpeed(distance) {
-    return Math.sqrt(8000 / distance) * Math.PI / 180;
+    return Math.sqrt(2000 / distance) * Math.PI / 180;
 }
 
 function genColor(keywords) {
@@ -44,7 +44,6 @@ function rawDataToCircleData(rawData) {
     // properties:
     //     is_escalated, color -> color, radius
     //     created_ts -> distance
-    //     weight -> speed
     var distanceFactory = DistanceFactory(rawData['minCt'], rawData['maxCt']),
         circleData = [];
     for (var i = rawData['rawData'].length - 1; i >= 0; i--) {
@@ -90,8 +89,8 @@ var planet = [
 ];
 
 // My code
-var width = $(window).width(),
-    height = $(window).height();
+var width = $(window).width() - 80,
+    height = $(window).height()- 80;
 
 var planet = rawDataToCircleData(serverData);
 
@@ -100,10 +99,103 @@ var svg = d3.select('#galaxy')
         .attr('width', width)
         .attr('height', height);
 
+// svg radialGradient
+var svg_defs = svg.append('defs');
+var red_rad = svg_defs.append('radialGradient')
+    .attr('id', 'radialGradient-red')
+            .attr("cx", "50%")
+        .attr("cy", "50%")
+        .attr("r", "50%")
+        .attr("fx", "0%")
+        .attr("gradientUnits", "objectBoundingBox")
+
+red_rad.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', '#E34D00')
+red_rad.append('stop')
+        .attr('offset', '40%')
+        .attr('stop-color', '#E14B00')
+red_rad.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', '#000')
+
+var orange_rad = svg_defs.append('radialGradient')
+    .attr('id', 'radialGradient-orange')
+            .attr("cx", "50%")
+        .attr("cy", "50%")
+        .attr("r", "50%")
+        .attr("fx", "0%")
+        .attr("gradientUnits", "objectBoundingBox")
+
+orange_rad.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', '#FDB500')
+orange_rad.append('stop')
+        .attr('offset', '40%')
+        .attr('stop-color', '#FB7F00')
+orange_rad.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', '#000')
+
+var yellow_rad = svg_defs.append('radialGradient')
+    .attr('id', 'radialGradient-yellow')
+            .attr("cx", "50%")
+        .attr("cy", "50%")
+        .attr("r", "50%")
+        .attr("fx", "0%")
+        .attr("gradientUnits", "objectBoundingBox")
+
+yellow_rad.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', '#FEEE00')
+yellow_rad.append('stop')
+        .attr('offset', '40%')
+        .attr('stop-color', '#FEE704')
+yellow_rad.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', '#000')
+
+var elevated_rad = svg_defs.append('radialGradient')
+    .attr('id', 'radialGradient-elevated')
+            .attr("cx", "50%")
+        .attr("cy", "50%")
+        .attr("r", "50%")
+        .attr("fx", "0%")
+        .attr("gradientUnits", "objectBoundingBox")
+
+elevated_rad.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', '#ffffff')
+elevated_rad.append('stop')
+        .attr('offset', '40%')
+        .attr('stop-color', '#d6eae9')
+elevated_rad.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', '#727d7c')
+
+var normal_rad = svg_defs.append('radialGradient')
+    .attr('id', 'radialGradient-normal')
+            .attr("cx", "50%")
+        .attr("cy", "50%")
+        .attr("r", "50%")
+        .attr("fx", "0%")
+        .attr("gradientUnits", "objectBoundingBox")
+
+normal_rad.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', '#ffffff')
+normal_rad.append('stop')
+        .attr('offset', '40%')
+        .attr('stop-color', '#f7f7c4')
+normal_rad.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', '#848468')
+
 svg.append('circle')  // the sun
     .attr('cx', width/2)
-    .attr('cy', height/2)
+    .attr('cy', 300)
     .attr('r', 0)
+    .attr('fill', 'url(#radialGradient-red)')
     .attr('id', 'center');
 
 svg = svg.append('g');  // two star
@@ -140,6 +232,5 @@ function newPlace(){
                 .attr('cx', function(d){ return width/2 + Math.cos(d.rotation) * d.distance; })
                 .attr('cy', function(d){ return height/2 + Math.sin(d.rotation) * d.distance; });
 }
-
 
 })
