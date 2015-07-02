@@ -10,12 +10,26 @@ var b = {
 
 // Mapping of step names to colors.
 var colors = {
-  "home": "#5687d1",
-  "product": "#7b615c",
-  "search": "#de783b",
-  "account": "#6ab975",
-  "other": "#a173d1",
-  "end": "#bbbbbb"
+  "vcpu 2": "#5687d1",
+  "vcpu 4": "#7b615c",
+  "vcpu 6": "#de783b",
+  "vcpu 8": "#6ab975",
+  "vcpu other": "#a173d1",
+  "mem 4096": "#5687d1",
+  "mem <=2048": "#7b615c",
+  "mem 8192": "#de783b",
+  "mem 16384": "#6ab975",
+  "mem other": "#a173d1",
+  "disk 0G": "#5687d1",
+  "disk >200G": "#7b615c",
+  "disk <=40G": "#de783b",
+  "disk 100~200G": "#6ab975",
+  "disk 40~100G": "#a173d1",
+  "hwversion 7": "#5687d1",
+  "hwversion 8": "#7b615c",
+  "hwversion 9": "#de783b",
+  "hwversion 10": "#6ab975",
+  "hwversion other": "#a173d1",
 };
 
 // Total size of all segments; we set this later, after loading the data.
@@ -41,7 +55,9 @@ var arc = d3.svg.arc()
 // Use d3.text and d3.csv.parseRows so that we do not need to have a header
 // row, and can receive the csv as an array of arrays.
 d3.text("visit-sequences.csv", function(text) {
-  var csv = d3.csv.parseRows(text);
+//d3.text("Book1.csv", function(text) {
+  //var csv = d3.csv.parseRows(text);
+  var csv = vmDetailInfoCount;
   var json = buildHierarchy(csv);
   createVisualization(json);
 });
