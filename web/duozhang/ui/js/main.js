@@ -468,6 +468,8 @@ d3.select("svg")
         t_recovery();
     });
 
+$('#search-box').click(function () { stopTooltip = true; });
+
 
 //Highlight some special planets & dim the others
 function highligtAndDim(bugIds) {

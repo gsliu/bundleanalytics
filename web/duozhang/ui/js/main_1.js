@@ -76,6 +76,7 @@ function runScript(e) {
                 break;
         default:
                 // alert('keyword');
+                needRecovery = true;
                 desc = 'keyword ' + keyword
                 $('#guide-desc').css('visibility', 'visible');
                 $('#guide-desc').html('Searching ' + desc);
