@@ -22,10 +22,15 @@
     <script src="js/main_1.js"></script>
     <script src="js/main.js"></script>
   <!--<link rel="stylesheet" href="/resources/demos/style.css"> -->
-
-  <script>
-
-  </script>
+    <script type="text/javascript">
+    function LoadMyJs(scriptName) {
+        var docHeadObj = document.getElementsByTagName("head")[0];
+        var dynamicScript = document.createElement("script");
+        dynamicScript.type = "text/javascript";
+        dynamicScript.src = scriptName;
+        docHeadObj.appendChild(dynamicScript);
+    }
+    </script>
 
   <script type="text/javascript">
 
