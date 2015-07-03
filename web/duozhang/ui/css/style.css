@@ -92,5 +92,11 @@ ul.ui-autocomplete li.ui-menu-item {
 }
 
 #guide > span {
-    color: white;
+  font-family: Oswald;
+  font-size: 20px;
+  font-weight: 300;
+
+  color: white;
+
+  visibility: hidden;
 }

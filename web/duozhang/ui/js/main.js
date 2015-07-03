@@ -471,8 +471,10 @@ d3.select("svg")
 
 //Highlight some special planets & dim the others
 function highligtAndDim(bugIds) {
-    $('#guide-desc').html(['Searched', ].concat($('#guide-desc').val().split(' ').slice(1)).join(' '));
+    var newDesc = ['Searched', ].concat($('#guide-desc').html().split(' ').slice(1)).join(' ')
+    $('#guide-desc').html(newDesc);
     $('#guide-num').html(bugIds.length);
+    $('#guide > span').css('visibility', 'visible');
 
     highlightBugIds = bugIds;
     var time = 500;
@@ -513,6 +515,7 @@ function highligtAndDim(bugIds) {
 
 function recovery() {
     console.log('recovery');
+    $('#guide > span').css('visibility', 'hidden');
     svg.selectAll('.planet')
         // .filter(function (d, i) {
         //     return highlightBugIds.indexOf(d.bug_id) >= 0

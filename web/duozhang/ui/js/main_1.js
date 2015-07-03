@@ -18,26 +18,30 @@ function runScript(e) {
                 //to do escaltion
                 // alert('escalation');
                 needRecovery = true;
-                escalation(e == null);
+                $('#guide-desc').css('visibility', 'visible');
                 $('#guide-desc').html('Searching ' + desc);
+                escalation(e == null);
                 break;
         case "vmmcore":
                 // alert('vmmcore');
                 needRecovery = true;
-                vmmcore(e == null);
+                $('#guide-desc').css('visibility', 'visible');
                 $('#guide-desc').html('Searching ' + desc);
+                vmmcore(e == null);
                 break;
         case "vmxcore":
                 // alert('vmxcore');
                 needRecovery = true;
-                vmxcore(e == null);
+                $('#guide-desc').css('visibility', 'visible');
                 $('#guide-desc').html('Searching ' + desc);
+                vmxcore(e == null);
                 break;
         case "vmotion failure": 
                 // alert('vmotion failumre');
                 needRecovery = true;
-                vmotion(e == null);
+                $('#guide-desc').css('visibility', 'visible');
                 $('#guide-desc').html('Searching ' + desc);
+                vmotion(e == null);
                 break;
         case "vm":
 		//fangchi input method
@@ -72,9 +76,10 @@ function runScript(e) {
                 break;
         default:
                 // alert('keyword');
-                desc = '<em>keyword</em> ' + keyword
-        		keywordsearch(keyword, e == null)
+                desc = 'keyword ' + keyword
+                $('#guide-desc').css('visibility', 'visible');
                 $('#guide-desc').html('Searching ' + desc);
+        		keywordsearch(keyword, e == null)
                 break;
 
         return false;
