@@ -1,0 +1,6 @@
+1. Two main reference doc
+    a.http://www.cnblogs.com/lanxuezaipiao/p/3525554.html
+    b.http://blog.csdn.net/licongcong_0224/article/details/12972889
+2. dir etc is the final config file of hadoop
+3. hosts is the final hosts file of hadoop nodes(master and slaves are the same)
+4. profile is the final profile of hadoop nodes
